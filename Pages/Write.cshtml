@@ -1,0 +1,31 @@
+@page
+@model PdfFormReadWrite.Pages.WriteModel
+
+@{
+    ViewData["Title"] = "Write PDF Form";
+}
+
+<h1>@ViewData["Title"]</h1>
+<form enctype="multipart/form-data" method="post">
+    <dl>
+        <dt>
+            <label asp-for="FileUpload.FormFile"></label>
+        </dt>
+        <dd>
+            <input asp-for="FileUpload.FormFile" type="file"/>
+            <span asp-validation-for="FileUpload.FormFile"></span>
+        </dd>
+    </dl>
+    @for (var i = 0; i < Model.FormFieldValues.Count; i++)
+    {
+        <div>
+            Form Field Name : <input type="text" asp-for="FormFieldValues[i].Name"/>
+            Form Field Value : <input type="text" asp-for="FormFieldValues[i].Value"/>
+        </div>
+    }
+    <input asp-page-handler="Upload" class="btn-primary" type="submit" value="Upload"/>
+</form>
+
+<p class="result">
+    @Model.Result
+</p>

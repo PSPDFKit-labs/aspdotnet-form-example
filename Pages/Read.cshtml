@@ -1,0 +1,49 @@
+@page
+@model PdfFormReadWrite.Pages.ReadModel
+@{
+    ViewData["Title"] = "Read PDF Form";
+}
+
+<h1>@ViewData["Title"]</h1>
+<form enctype="multipart/form-data" method="post">
+    <dl>
+        <dt>
+            <label asp-for="FileUpload.FormFile"></label>
+        </dt>
+        <dd>
+            <input asp-for="FileUpload.FormFile" type="file"/>
+            <span asp-validation-for="FileUpload.FormFile"></span>
+        </dd>
+    </dl>
+    <input asp-page-handler="Upload" class="btn-primary" type="submit" value="Upload"/>
+</form>
+
+<p class="result">
+    @Model.Result
+</p>
+
+<table class="table">
+    <thead>
+    <tr>
+    <th>
+        @Html.DisplayNameFor(model => model.FormFieldValues[0].Name)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.FormFieldValues[0].Value)
+    </th>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model.FormFieldValues)
+    {
+        <tr>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Value)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
